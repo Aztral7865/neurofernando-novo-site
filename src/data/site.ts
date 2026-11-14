@@ -15,7 +15,7 @@ export const site = {
   phoneHref: 'tel:+5548991140848',
   whatsappNumber,
   whatsappHref: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    'Olá, Dr. Fernando! Gostaria de agendar uma consulta.',
+    'Olá! Gostaria de agendar uma consulta com o Dr. Fernando Topanotti Tarabay, neurologista.',
   )}`,
 
   address: {

@@ -265,7 +265,7 @@ function initContactForm() {
 
     // Mesmo texto do site anterior; as linhas de e-mail e telefone só entram quando preenchidas.
     const contatos = email + phone;
-    const texto = `Olá, Dr. Fernando! Meu nome é *${name}*.\n\nEntro em contato através do seu site.\n\n${contatos ? `${contatos}\n` : ''}*Mensagem:*\n${message}`;
+    const texto = `Olá! Meu nome é *${name}* e gostaria de agendar uma consulta com o Dr. Fernando Topanotti Tarabay, neurologista.\n\nEntro em contato pelo site do Dr. Fernando.\n\n${contatos ? `${contatos}\n` : ''}*Mensagem:*\n${message}`;
     window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
     if (status) status.textContent = 'Abrimos o WhatsApp com a sua mensagem. Toque em enviar para concluir.';
     form.reset();
