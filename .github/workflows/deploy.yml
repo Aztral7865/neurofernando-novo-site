@@ -38,7 +38,9 @@ jobs:
           PUBLIC_PREVIEW: ${{ vars.PREVIEW == 'true' && 'true' || 'false' }}
       - name: Prévia sem domínio próprio
         if: vars.PREVIEW == 'true'
-        run: rm -f dist/CNAME dist/sitemap.xml && printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
+        run: |
+          rm -f dist/CNAME dist/sitemap.xml
+          printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
