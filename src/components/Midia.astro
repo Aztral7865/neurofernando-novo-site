@@ -1,0 +1,421 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { entrevistas, imprensa } from '../data/midia';
+
+const [destaque, ...videos] = entrevistas;
+const total = entrevistas.length + imprensa.length;
+---
+
+<section class="section midia" id="midia" aria-labelledby="midia-title" data-section>
+  <div class="wrap">
+    <header class="section__head">
+      <h2 id="midia-title">Na mídia</h2>
+      <p class="section__intro">
+        <span class="tabular">{total}</span> participações em TV, rádio, podcast e imprensa, incluindo reportagens sobre
+        a Unidade do AVC do Hospital São José, que ele coordena.
+      </p>
+    </header>
+
+    <h3 class="midia__subtitle">
+      Entrevistas
+      <span class="midia__count tabular">{entrevistas.length}</span>
+    </h3>
+
+    <a class="feature" href={destaque.href} target="_blank" rel="noopener">
+      <div class="thumb thumb--feature">
+        <Picture
+          src={destaque.image}
+          alt=""
+          formats={['avif', 'webp']}
+          widths={[360, 540, 720, 960]}
+          sizes="(min-width: 1100px) 680px, (min-width: 720px) 56vw, 100vw"
+          class="thumb__img"
+        />
+        <span class="play" aria-hidden="true"><Icon name="play" size={22} /></span>
+      </div>
+      <div class="feature__text">
+        <p class="feature__title">{destaque.title}</p>
+        <p class="feature__desc">{destaque.description}</p>
+        <p class="meta"><Icon name="youtube" size={16} /> {destaque.source}</p>
+        <span class="feature__cta">
+          Assistir no YouTube <Icon name="arrow-up-right" size={18} />
+        </span>
+      </div>
+      <span class="visually-hidden">(abre em uma nova aba)</span>
+    </a>
+
+    <ul class="videos" role="list">
+      {
+        videos.map((v) => (
+          <li>
+            <a class="video" href={v.href} target="_blank" rel="noopener">
+              <div class="thumb">
+                <Picture
+                  src={v.image}
+                  alt=""
+                  formats={['avif', 'webp']}
+                  widths={[240, 360, 480]}
+                  sizes="(min-width: 1100px) 370px, (min-width: 720px) 30vw, 136px"
+                  class="thumb__img"
+                />
+                <span class="play play--sm" aria-hidden="true">
+                  <Icon name="play" size={16} />
+                </span>
+              </div>
+              <div class="video__text">
+                <p class="video__title">{v.title}</p>
+                <p class="video__desc">{v.description}</p>
+                <p class="meta">
+                  {v.source === 'YouTube' ? <Icon name="youtube" size={15} /> : <Icon name="arrow-up-right" size={15} />}
+                  {v.source}
+                </p>
+              </div>
+              <span class="visually-hidden">(abre em uma nova aba)</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h3 class="midia__subtitle midia__subtitle--press" id="imprensa">
+      Unidade do AVC na imprensa
+      <span class="midia__count tabular">{imprensa.length}</span>
+    </h3>
+
+    <ul class="press" role="list">
+      {
+        imprensa.map((n) => (
+          <li>
+            <a class="press-item" href={n.href} target="_blank" rel="noopener">
+              <div class="thumb thumb--press">
+                <Picture
+                  src={n.image}
+                  alt=""
+                  formats={['avif', 'webp']}
+                  widths={[160, 240, 320]}
+                  sizes="(min-width: 720px) 132px, 96px"
+                  class="thumb__img"
+                />
+              </div>
+              <div class="press-item__text">
+                <p class="meta">
+                  {n.date && <span class="tabular">{n.date}</span>}
+                  {n.date && <span aria-hidden="true">·</span>}
+                  {n.source}
+                </p>
+                <p class="press-item__title">{n.title}</p>
+                <p class="press-item__desc">{n.description}</p>
+              </div>
+              <Icon name="arrow-up-right" size={20} class="press-item__arrow" />
+              <span class="visually-hidden">(abre em uma nova aba)</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .midia {
+    --on-dark: #ffffff;
+    --on-dark-text: #d6e3f0;
+    --on-dark-muted: #a9c6e2;
+    --on-dark-line: rgb(255 255 255 / 0.14);
+    background: var(--navy-deep);
+    color: var(--on-dark-text);
+  }
+
+  .midia h2,
+  .midia h3 {
+    color: var(--on-dark);
+  }
+
+  .midia .section__intro {
+    color: var(--on-dark-text);
+  }
+
+  .midia__subtitle {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-bottom: var(--s-4);
+    margin-bottom: var(--s-6);
+    border-bottom: 1px solid var(--on-dark-line);
+    font-size: var(--t-h3);
+  }
+
+  .midia__subtitle--press {
+    margin-top: var(--s-8);
+  }
+
+  .midia__count {
+    font-family: var(--font-body);
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--on-dark-muted);
+  }
+
+  /* ---------- Miniaturas ---------- */
+  .thumb {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
+    background: #1b3a66;
+    box-shadow: inset 0 0 0 1px var(--on-dark-line);
+  }
+
+  .thumb :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .thumb :global(.thumb__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms var(--ease-out);
+  }
+
+  .play {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--navy);
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .play :global(.icon) {
+    margin-left: 3px;
+    fill: currentColor;
+  }
+
+  .play--sm {
+    left: 8px;
+    bottom: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .play--sm :global(.icon) {
+    margin-left: 2px;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--on-dark-muted);
+  }
+
+  /* ---------- Destaque ---------- */
+  .feature {
+    display: grid;
+    gap: var(--s-5);
+    color: inherit;
+    text-decoration: none;
+    margin-bottom: var(--s-7);
+  }
+
+  .feature__text {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+  }
+
+  .feature__title {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: clamp(30px, 2.4vw + 20px, 52px);
+    line-height: 1;
+    color: var(--on-dark);
+  }
+
+  .feature__desc {
+    font-size: var(--t-body);
+    color: var(--on-dark-text);
+  }
+
+  .feature__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: var(--s-3);
+    font-weight: 500;
+    color: #fff;
+  }
+
+  /* ---------- Lista de vídeos ---------- */
+  .videos {
+    display: grid;
+    gap: 0;
+  }
+
+  .video {
+    display: grid;
+    grid-template-columns: 136px minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-4) 0;
+    border-top: 1px solid var(--on-dark-line);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .video__text {
+    display: grid;
+    gap: 4px;
+  }
+
+  .video__title {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--on-dark);
+  }
+
+  .video__desc {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--on-dark-text);
+  }
+
+  /* ---------- Imprensa ---------- */
+  .press {
+    display: grid;
+  }
+
+  .press-item {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-4) 0;
+    border-top: 1px solid var(--on-dark-line);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .thumb--press {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-sm);
+  }
+
+  .press-item__text {
+    display: grid;
+    gap: 4px;
+  }
+
+  .press-item__title {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--on-dark);
+  }
+
+  .press-item__desc {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--on-dark-text);
+  }
+
+  .press-item :global(.press-item__arrow) {
+    display: none;
+  }
+
+  /* ---------- Estados ---------- */
+  .feature:active .thumb,
+  .video:active .thumb,
+  .press-item:active .thumb {
+    transform: scale(0.985);
+  }
+
+  .thumb {
+    transition: transform 160ms var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .feature:hover :global(.thumb__img),
+    .video:hover :global(.thumb__img),
+    .press-item:hover :global(.thumb__img) {
+      transform: scale(1.03);
+    }
+
+    .feature:hover .play,
+    .video:hover .play {
+      background: var(--azure);
+      color: #fff;
+    }
+
+    .feature:hover .feature__title,
+    .video:hover .video__title,
+    .press-item:hover .press-item__title {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+  }
+
+  /* ---------- Telas maiores ---------- */
+  @media (min-width: 720px) {
+    .feature {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--s-6);
+      align-items: center;
+    }
+
+    .videos {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--s-6) var(--s-5);
+    }
+
+    .video {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-3);
+      padding: 0;
+      border-top: 0;
+    }
+
+    .press {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--s-6);
+    }
+
+    .press-item {
+      grid-template-columns: 132px minmax(0, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .press-item {
+      grid-template-columns: 132px minmax(0, 1fr) 24px;
+    }
+
+    .press-item :global(.press-item__arrow) {
+      display: block;
+      margin-top: 2px;
+      color: var(--on-dark-muted);
+      transition: transform 200ms var(--ease-out), color 200ms ease;
+    }
+
+    .press-item:hover :global(.press-item__arrow) {
+      transform: translate(2px, -2px);
+      color: #fff;
+    }
+  }
+</style>

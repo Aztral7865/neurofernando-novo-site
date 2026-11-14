@@ -1,0 +1,406 @@
+/* ==========================================================================
+   Base do site do Dr. Fernando Topanotti Tarabay
+   Cores e tipografia da identidade visual da Aura Neurologia.
+   Mobile primeiro: tudo nasce para 360–430px e cresce a partir de 640px.
+   ========================================================================== */
+
+:root {
+  /* Paleta do manual da Aura */
+  --azure: #096bad; /* C96 M57 Y2 K0 · RGB 9 107 173 */
+  --navy: #144487; /* C100 M84 Y15 K5 · RGB 20 68 135 */
+  --slate: #445159; /* C20 M0 Y0 K80 · RGB 68 81 89 */
+
+  /* Derivados (mesma família de cor) */
+  --navy-deep: #0d2c57; /* aplicação "monocromática negativa" */
+  --ink: #12305c; /* títulos */
+  --text: #3a464e; /* texto corrido: 9,7:1 sobre branco */
+  --muted: #5a6872; /* datas e rótulos: 5,8:1 sobre branco */
+  --line: #d8e1ea; /* filetes de 1px */
+  --line-strong: #b9c8d6;
+  --ice: #f2f6fa; /* fundo alternado */
+  --azure-wash: #e7f0f8; /* fundo de estado ativo */
+  --paper: #ffffff;
+
+  --font-body: var(--font-text), 'Fira Sans', system-ui, sans-serif;
+  --font-head: var(--font-display), 'Fira Sans Extra Condensed', 'Arial Narrow', sans-serif;
+
+  /* Escala de espaço: 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 128 */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* Margens laterais: 20px no celular, crescendo até 64px */
+  --gutter: clamp(20px, 5vw, 64px);
+  --wrap: 1200px;
+  --header-h: 64px;
+  --bar-h: 0px;
+
+  /* Tipografia (celular → desktop) */
+  --t-body: 17px;
+  --t-small: 15px;
+  --t-label: 14px;
+  --t-lead: clamp(19px, 1.2vw + 14px, 22px);
+  --t-h3: clamp(22px, 0.6vw + 19px, 26px);
+  --t-h2: clamp(36px, 3.2vw + 22px, 60px);
+  --t-h1: clamp(46px, 5.6vw + 22px, 96px);
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+
+  /* Movimento: curvas fortes, tempos curtos */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 76px;
+    --t-body: 18px;
+    --t-small: 16px;
+  }
+}
+
+/* ---------- Reset enxuto ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-padding-top: calc(var(--header-h) + 8px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Com menu ou artigo aberto, a página de trás não rola */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+img,
+svg,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Campos com 16px ou mais: o iOS não dá zoom ao focar */
+input,
+textarea,
+select {
+  font-size: max(16px, 1em);
+}
+
+a,
+button,
+[role='button'],
+summary,
+label {
+  touch-action: manipulation;
+}
+
+button,
+[role='button'] {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* ---------- Superfícies do navegador, no tom da marca ---------- */
+::selection {
+  background: var(--azure);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--azure);
+  outline-offset: 3px;
+}
+
+/* Sobre o fundo azul-marinho o anel de foco fica branco, para aparecer */
+.midia :focus-visible {
+  outline-color: #fff;
+}
+
+input,
+textarea {
+  caret-color: var(--azure);
+  accent-color: var(--azure);
+}
+
+html {
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+/* ---------- Tipografia ---------- */
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--t-h1);
+  line-height: 0.92;
+}
+
+h2 {
+  font-size: var(--t-h2);
+  line-height: 0.98;
+}
+
+h3 {
+  font-size: var(--t-h3);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.measure {
+  max-width: 64ch;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* ---------- Estrutura ---------- */
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--s-9) var(--s-9);
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: var(--s-10);
+  }
+}
+
+.section__head {
+  display: grid;
+  gap: var(--s-4);
+  margin-bottom: var(--s-7);
+}
+
+@media (min-width: 1024px) {
+  .section__head {
+    margin-bottom: var(--s-8);
+  }
+}
+
+.section__intro {
+  max-width: 60ch;
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  --btn-bg: var(--azure);
+  --btn-fg: #fff;
+  --btn-bd: var(--azure);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 22px;
+  border: 1.5px solid var(--btn-bd);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.btn svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--navy);
+  --btn-bd: var(--line-strong);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    --btn-bg: var(--navy);
+    --btn-bd: var(--navy);
+  }
+
+  .btn--ghost:hover {
+    --btn-bg: var(--azure-wash);
+    --btn-fg: var(--navy);
+    --btn-bd: var(--azure);
+  }
+}
+
+/* ---------- Links de texto ---------- */
+.link {
+  color: var(--azure);
+  font-weight: 500;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, var(--azure) 40%, transparent);
+  transition: text-decoration-color 200ms ease, color 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--navy);
+    text-decoration-color: currentColor;
+  }
+}
+
+/* ---------- Movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

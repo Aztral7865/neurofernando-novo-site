@@ -1,0 +1,332 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T18:30:00-03:00",
+  "title": "Design System: Dr. Fernando Topanotti Tarabay",
+  "extensions": {
+    "colorMeta": {
+      "azure": {
+        "role": "primary",
+        "displayName": "Aura Azure",
+        "canonical": "#096bad",
+        "tonalRamp": [
+          "#0a2a43",
+          "#0b3c61",
+          "#0a4f80",
+          "#096bad",
+          "#3a89c2",
+          "#74acd6",
+          "#b1d0e9",
+          "#e7f0f8"
+        ]
+      },
+      "navy": {
+        "role": "secondary",
+        "displayName": "Aura Royal Navy",
+        "canonical": "#144487",
+        "tonalRamp": [
+          "#0a1f3d",
+          "#0f2c57",
+          "#123a71",
+          "#144487",
+          "#3c64a0",
+          "#6f8fbd",
+          "#a9bddb",
+          "#e3eaf4"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Aura Slate",
+        "canonical": "#445159",
+        "tonalRamp": [
+          "#1f262a",
+          "#2b343a",
+          "#37424a",
+          "#445159",
+          "#5f6e77",
+          "#87949c",
+          "#b6c0c6",
+          "#e6ebee"
+        ]
+      },
+      "navy-deep": {
+        "role": "secondary",
+        "displayName": "Deep Navy Band",
+        "canonical": "#0d2c57",
+        "tonalRamp": [
+          "#061730",
+          "#0a2244",
+          "#0d2c57",
+          "#1b3a66",
+          "#3a5a85",
+          "#6a87ad",
+          "#a7bbd4",
+          "#e2e9f2"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink Navy",
+        "canonical": "#12305c"
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Slate Text",
+        "canonical": "#3a464e"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "canonical": "#5a6872"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#d8e1ea"
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "#b9c8d6"
+      },
+      "ice": {
+        "role": "neutral",
+        "displayName": "Ice Ground",
+        "canonical": "#f2f6fa"
+      },
+      "azure-wash": {
+        "role": "neutral",
+        "displayName": "Azure Wash",
+        "canonical": "#e7f0f8"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#ffffff"
+      },
+      "on-dark-text": {
+        "role": "neutral",
+        "displayName": "On-dark Text",
+        "canonical": "#d6e3f0"
+      },
+      "on-dark-muted": {
+        "role": "neutral",
+        "displayName": "On-dark Muted",
+        "canonical": "#a9c6e2"
+      },
+      "error": {
+        "role": "neutral",
+        "displayName": "Field Error Red",
+        "canonical": "#b42318"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The doctor's name in the opening screen only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "One section heading per section."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Group headings, area titles, article card titles."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Section intros and the about summary."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; 18px/1.7 inside the article reader."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Dates, counts, the wordmark's role line (14px). Sentence case."
+      },
+      "title-xl": {
+        "displayName": "Title XL",
+        "purpose": "Newest article in the index, featured interview, menu sheet links."
+      },
+      "title-lg": {
+        "displayName": "Title LG",
+        "purpose": "Timeline years, article sub-heads, footer name."
+      },
+      "title-sm": {
+        "displayName": "Title SM",
+        "purpose": "Area titles, article rows, article sub-sub-heads."
+      },
+      "body-lg": {
+        "displayName": "Body LG",
+        "purpose": "Article reader text; training and role titles at 500."
+      },
+      "body-sm": {
+        "displayName": "Body SM",
+        "purpose": "Descriptions, nav and footer links."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Meta lines, interview descriptions, credential nodes on phones."
+      }
+    },
+    "shadows": [
+      {
+        "name": "node-lit",
+        "value": "0 0 0 4px rgb(9 107 173 / 0.18)",
+        "purpose": "Ring around a lit node (hover, focus, open, current). The only glow in the system."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 3px rgb(9 107 173 / 0.22)",
+        "purpose": "Focus halo on form fields."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Press feedback (160ms), underline edges (260ms), area panels (280ms), menu (260ms)."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Article reader sheet entering (380ms)."
+      },
+      {
+        "name": "hero-entrance",
+        "value": "mesh edges draw 1500ms; credential nodes light in sequence from 560ms, 150ms apart",
+        "purpose": "The one authored moment, on load only; absent under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "header-cta",
+        "value": "560px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "720px"
+      },
+      {
+        "name": "timeline",
+        "value": "900px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "nav",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single filled button: every booking action on WhatsApp.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z\"/></svg>Agendar pelo WhatsApp</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; border: 1.5px solid #096bad; border-radius: 10px; background: #096bad; color: #fff; font: 500 17px/1.2 'Fira Sans', system-ui, sans-serif; text-decoration: none; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms ease, border-color 200ms ease; } .ds-btn-primary:hover { background: #144487; border-color: #144487; } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2px solid #096bad; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action beside the primary (e.g. 'Ver áreas de atuação').",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Ver áreas de atuação</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border: 1.5px solid #b9c8d6; border-radius: 10px; background: transparent; color: #144487; font: 500 17px/1.2 'Fira Sans', system-ui, sans-serif; text-decoration: none; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms ease, border-color 200ms ease; } .ds-btn-ghost:hover { background: #e7f0f8; border-color: #096bad; } .ds-btn-ghost:active { transform: scale(0.97); } .ds-btn-ghost:focus-visible { outline: 2px solid #096bad; outline-offset: 3px; }"
+    },
+    {
+      "name": "Node List",
+      "kind": "custom",
+      "refersTo": "node-list",
+      "description": "Signature: items hang on one azure edge, each marked by a ring that lights on hover or focus.",
+      "html": "<ol class=\"ds-nodes\"><li><a href=\"#\"><span class=\"ds-node\"></span>Coordenador da Unidade do AVC do Hospital São José</a></li><li><a href=\"#\"><span class=\"ds-node\"></span>Sócio-fundador e diretor técnico da Aura Neurologia</a></li><li><a href=\"#\"><span class=\"ds-node\"></span>Preceptor da Residência Médica em Neurologia</a></li></ol>",
+      "css": ".ds-nodes { position: relative; display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; font: 500 16px/1.4 'Fira Sans', system-ui, sans-serif; } .ds-nodes::before { content: ''; position: absolute; left: 5.25px; top: 17px; bottom: 17px; width: 1.5px; background: #096bad; } .ds-nodes a { display: flex; gap: 14px; align-items: flex-start; padding: 6px 0; color: #12305c; text-decoration: none; } .ds-node { position: relative; flex: none; width: 12px; height: 12px; margin-top: 5px; border: 2px solid #096bad; border-radius: 50%; background: #fff; transition: background-color 200ms ease, box-shadow 200ms ease; } .ds-nodes a:hover .ds-node, .ds-nodes a:focus-visible .ds-node { background: #096bad; box-shadow: 0 0 0 4px rgb(9 107 173 / 0.18); } .ds-nodes a:hover { color: #096bad; }"
+    },
+    {
+      "name": "Article Row",
+      "kind": "card",
+      "refersTo": "article-row",
+      "description": "Editorial index row on the azure edge; the whole row opens the in-page reader.",
+      "html": "<ol class=\"ds-index\"><li><a href=\"#\"><span class=\"ds-node\"></span><span class=\"ds-body\"><span class=\"ds-meta\">10 de abril de 2024 · 2 min de leitura</span><span class=\"ds-title\">Prevenção do AVC: Hábitos Saudáveis que Salvam Vidas</span><span class=\"ds-desc\">Descubra como pequenas mudanças no seu dia a dia podem reduzir significativamente o risco de um Acidente Vascular Cerebral.</span></span></a></li><li><a href=\"#\"><span class=\"ds-node\"></span><span class=\"ds-body\"><span class=\"ds-meta\">3 de abril de 2024 · 2 min de leitura</span><span class=\"ds-title\">Insônia: Quando a Noite Vira Um Problema</span><span class=\"ds-desc\">Problemas para dormir? Entenda as causas da insônia e as estratégias para recuperar seu sono e bem-estar.</span></span></a></li></ol>",
+      "css": ".ds-index { max-width: 420px; margin: 0; padding: 0; list-style: none; border-top: 1px solid #b9c8d6; font-family: 'Fira Sans', system-ui, sans-serif; } .ds-index li { position: relative; } .ds-index li:not(:last-child)::before { content: ''; position: absolute; left: 5.5px; top: 33px; bottom: -33px; width: 1px; background: rgb(9 107 173 / 0.38); } .ds-index a { display: grid; grid-template-columns: 12px 1fr; column-gap: 16px; padding: 24px 0; border-bottom: 1px solid #d8e1ea; color: #3a464e; text-decoration: none; } .ds-node { position: relative; z-index: 1; width: 12px; height: 12px; margin-top: 3px; border: 2px solid #096bad; border-radius: 50%; background: #fff; transition: background-color 200ms ease, box-shadow 200ms ease; } .ds-body { display: grid; gap: 6px; } .ds-meta { font-size: 14px; font-weight: 500; color: #5a6872; } .ds-title { font: 600 22px/1.08 'Fira Sans Extra Condensed', 'Arial Narrow', sans-serif; color: #12305c; } .ds-desc { font-size: 16px; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; } .ds-index a:hover .ds-node, .ds-index a:focus-visible .ds-node { background: #096bad; box-shadow: 0 0 0 4px rgb(9 107 173 / 0.18); } .ds-index a:hover .ds-title { color: #096bad; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Contact form field with a visible label; errors show under the field on submit.",
+      "html": "<label class=\"ds-field\"><span>Nome completo</span><input type=\"text\" autocomplete=\"name\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 360px; font: 500 15px 'Fira Sans', system-ui, sans-serif; color: #12305c; } .ds-field input { min-height: 52px; padding: 12px 14px; border: 1px solid #b9c8d6; border-radius: 10px; background: #fff; color: #12305c; font: 400 17px/1.4 'Fira Sans', system-ui, sans-serif; transition: border-color 160ms ease, box-shadow 160ms ease; } .ds-field input:focus { outline: none; border-color: #096bad; box-shadow: 0 0 0 3px rgb(9 107 173 / 0.22); }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Desktop section link; the current section gains an azure underline edge.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Áreas</a><a href=\"#\" aria-current=\"location\">Sobre</a><a href=\"#\">Formação</a><a href=\"#\">Mídia</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; font: 500 16px 'Fira Sans', system-ui, sans-serif; } .ds-nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #445159; text-decoration: none; transition: color 200ms ease; } .ds-nav a::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 6px; height: 1.5px; background: #096bad; transform: scaleX(0); transform-origin: left; transition: transform 260ms cubic-bezier(0.23,1,0.32,1); } .ds-nav a:hover, .ds-nav a[aria-current='location'] { color: #12305c; } .ds-nav a:hover::after, .ds-nav a[aria-current='location']::after { transform: scaleX(1); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Malha Aura",
+    "overview": "The Aura Neurologia brain is a triangulated mesh, and this system treats that mesh as wiring, not wallpaper. Every credential, area of practice, dated qualification and section is a node; thin azure edges connect the nodes in lists, timelines and the menu, and the edges lead the eye toward one action, booking on WhatsApp. The mesh itself appears as a faint field only behind the doctor's portrait in the opening screen.\n\nThe surface is calm, white and exact: real studio photographs of Dr. Fernando, navy condensed headlines, slate body text at a generous size for older readers, and a single signal colour. Sections alternate white and ice-blue grounds, with one deep navy band, for the interviews only. The old site's rounded, playful, multi-coloured cards are the confirmed anti-reference.",
+    "keyCharacteristics": [
+      "One signal colour (Aura azure) for edges, nodes, links and the single filled button style.",
+      "Nodes and edges as the list grammar: 12px azure rings joined by 1px azure lines.",
+      "Condensed display type (Fira Sans Extra Condensed 600) over a humanist text face (Fira Sans).",
+      "Flat surfaces; depth only from ground changes, hairlines and photographs.",
+      "Phone first: every pattern is designed at 360–430px and grows."
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Azure is the only saturated colour on the page. It marks what is connected or actionable; nothing decorative is azure except the mesh field behind the portrait.",
+        "section": "colors"
+      },
+      {
+        "name": "The Brand-Exact Rule",
+        "body": "Azure #096bad, navy #144487 and slate #445159 come from the Aura identity manual and are never shifted, tinted toward violet or replaced.",
+        "section": "colors"
+      },
+      {
+        "name": "The Readable Patient Rule",
+        "body": "Text people read is 16px or larger (17px body on phones); nothing is smaller than 13px. Many readers are older patients or worried relatives.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Weights Rule",
+        "body": "Display at 600 only; text at 400 and 500 only. No bold-and-big.",
+        "section": "typography"
+      },
+      {
+        "name": "The Light Is the State Rule",
+        "body": "Hover, focus and the current section fill the node with azure and raise its edge to full strength. Nothing lifts with a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep azure (#096bad) as the only signal colour and use it for every booking action.",
+      "Do keep the deep navy band to one section (the interviews); every other ground is white or ice.",
+      "Do show CRM/SC 22270 and RQE 18727 beside the doctor's name wherever the name is presented as a credential.",
+      "Do use real photographs of Dr. Fernando, his team and his clinic.",
+      "Do build new lists on the node-and-edge grammar (12px ring, 1px azure edge).",
+      "Do gate hover styles behind (hover: hover) and (pointer: fine) and give every tappable element a pressed state."
+    ],
+    "donts": [
+      "Don't use stock or AI-generated illustrations; the article images of the old site were dropped for that reason.",
+      "Don't add drop shadows, gradients over photographs or glass effects.",
+      "Don't set text people read below 16px or labels below 13px.",
+      "Don't return to the old site's look: Poppins, tabs that hide sections, a splash screen, rounded multi-coloured icon cards.",
+      "Don't recolour, outline or distort the Aura brain symbol."
+    ]
+  }
+}

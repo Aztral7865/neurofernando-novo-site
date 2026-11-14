@@ -1,0 +1,410 @@
+---
+import Icon from './Icon.astro';
+import Mark from './Mark.astro';
+import { site } from '../data/site';
+import { navItems } from '../data/nav';
+---
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header" data-header>
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#inicio" aria-label={`${site.name}, início`}>
+      <Mark class="brand__mark" />
+      <span class="brand__text">
+        <span class="brand__name">{site.shortName}</span>
+        <span class="brand__role">Neurologista · {site.city}</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Seções do site">
+      <ul role="list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href} data-nav-link>
+                {item.short}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="btn btn--sm header-cta" href={site.whatsappHref} target="_blank" rel="noopener" data-cta>
+        <Icon name="whatsapp" size={18} />
+        <span>Agendar <span class="hide-sm">pelo WhatsApp</span></span>
+      </a>
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Abrir menu"
+        aria-controls="menu"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        data-menu-open
+      >
+        <Icon name="menu" size={22} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<dialog class="menu" id="menu" aria-label="Menu" data-menu>
+  <div class="menu__top wrap">
+    <a class="brand" href="#inicio" data-menu-link>
+      <Mark class="brand__mark" />
+      <span class="brand__text">
+        <span class="brand__name">{site.shortName}</span>
+        <span class="brand__role">Neurologista · {site.city}</span>
+      </span>
+    </a>
+    <button class="menu-button" type="button" aria-label="Fechar menu" data-menu-close>
+      <Icon name="x" size={22} />
+    </button>
+  </div>
+
+  <nav class="menu__nav wrap" aria-label="Seções do site">
+    <ol role="list" class="menu__list">
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={item.href} data-nav-link data-menu-link>
+              <span class="node" aria-hidden="true" />
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <div class="menu__foot wrap">
+    <a class="btn btn--block" href={site.whatsappHref} target="_blank" rel="noopener">
+      <Icon name="whatsapp" />
+      Agendar pelo WhatsApp
+    </a>
+    <p class="menu__meta">
+      <a class="menu__meta-link" href={site.phoneHref}>{site.phoneDisplay}</a>
+      <span aria-hidden="true">·</span>
+      <a class="menu__meta-link" href={site.instagram.href} target="_blank" rel="noopener">Instagram</a>
+    </p>
+  </div>
+</dialog>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .site-header__inner {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+  }
+
+  /* ---------- Marca ---------- */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    text-decoration: none;
+    color: var(--ink);
+    flex: none;
+  }
+
+  /* Símbolo da Aura: largura fixa, altura pela proporção (nunca distorcer) */
+  .brand :global(.brand__mark) {
+    width: 42px;
+    height: auto;
+    flex: none;
+  }
+
+  .brand__text {
+    display: grid;
+    line-height: 1.05;
+  }
+
+  .brand__name {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  .brand__role {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--azure);
+    margin-top: 3px;
+  }
+
+  /* ---------- Navegação (desktop) ---------- */
+  .site-nav {
+    display: none;
+  }
+
+  .site-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .site-nav a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--slate);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: color 200ms ease;
+  }
+
+  /* A seção atual "acende": o nó e a aresta embaixo do link. */
+  .site-nav a::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 6px;
+    height: 1.5px;
+    background: var(--azure);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 260ms var(--ease-out);
+  }
+
+  .site-nav a[aria-current='location'] {
+    color: var(--ink);
+  }
+
+  .site-nav a[aria-current='location']::after {
+    transform: scaleX(1);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .site-nav a:hover {
+      color: var(--ink);
+    }
+
+    .site-nav a:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .btn--sm {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 16px;
+  }
+
+  .hide-sm {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--ink);
+    transition:
+      transform 160ms var(--ease-out),
+      border-color 200ms ease;
+  }
+
+  .menu-button:active {
+    transform: scale(0.94);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .menu-button:hover {
+      border-color: var(--azure);
+    }
+  }
+
+  @media (min-width: 560px) {
+    .header-cta {
+      display: inline-flex;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .site-nav {
+      display: block;
+    }
+
+    .menu-button {
+      display: none;
+    }
+
+    .hide-sm {
+      display: inline;
+    }
+  }
+
+  @media (min-width: 1100px) and (max-width: 1240px) {
+    .site-nav a {
+      padding: 0 9px;
+    }
+  }
+
+  /* ---------- Menu em tela cheia (celular e tablet) ---------- */
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0 0 env(safe-area-inset-bottom, 0px);
+    border: 0;
+    background: #fff;
+    color: var(--text);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .menu[open] {
+    display: flex;
+    flex-direction: column;
+    animation: menu-in 260ms var(--ease-out);
+  }
+
+  .menu::backdrop {
+    background: rgb(13 44 87 / 0.2);
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+  }
+
+  .menu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-h);
+    flex: none;
+    border-bottom: 1px solid var(--line);
+    width: 100%;
+    max-width: none;
+    padding-inline: var(--gutter);
+  }
+
+  .menu__nav {
+    flex: 1;
+    padding-block: var(--s-5) var(--s-6);
+  }
+
+  .menu__list {
+    position: relative;
+    display: grid;
+  }
+
+  /* A aresta vertical que liga os nós do menu */
+  .menu__list::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 30px;
+    bottom: 30px;
+    width: 1px;
+    background: color-mix(in srgb, var(--azure) 45%, transparent);
+  }
+
+  .menu__list a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 60px;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: clamp(30px, 2.4vw + 20px, 52px);
+    line-height: 1;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .menu__list a:active .node,
+  .menu__list a[aria-current='location'] .node {
+    background: var(--azure);
+  }
+
+  .menu__list a[aria-current='location'] {
+    color: var(--azure);
+  }
+
+  .node {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--azure);
+    border-radius: 50%;
+    background: #fff;
+    transition: background-color 200ms ease;
+  }
+
+  .menu__foot {
+    display: grid;
+    gap: var(--s-4);
+    padding-bottom: var(--s-6);
+  }
+
+  .menu__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 10px;
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .menu__meta-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--slate);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  @media (min-width: 1100px) {
+    .menu {
+      display: none !important;
+    }
+  }
+</style>

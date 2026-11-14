@@ -1,0 +1,402 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import equipe from '../assets/photos/equipe-aura.jpg';
+---
+
+<section class="section contato" id="contato" aria-labelledby="contato-title" data-section>
+  <div class="wrap contato__grid">
+    <div class="contato__info">
+      <h2 id="contato-title">Agende sua consulta</h2>
+      <p class="section__intro">
+        Para agendamentos, dúvidas ou mais informações, pode preencher o formulário ou utilizar um dos nossos contatos
+        diretos abaixo.
+      </p>
+
+      <a class="btn btn--lg contato__cta" href={site.whatsappHref} target="_blank" rel="noopener" data-contact-cta>
+        <Icon name="whatsapp" size={22} />
+        Agendar pelo WhatsApp
+      </a>
+    </div>
+
+    <ul class="channels" role="list" aria-label="Contatos diretos">
+        <li>
+          <a class="channel" href={site.address.mapsHref} target="_blank" rel="noopener">
+            <span class="channel__icon"><Icon name="map-pin" /></span>
+            <span class="channel__text">
+              <span class="channel__label">Endereço · {site.address.clinic}</span>
+              <span class="channel__value">
+                {site.address.street}<br />
+                {site.address.district}, {site.address.city}, {site.address.zip}
+              </span>
+              <span class="channel__hint">Abrir no Google Maps</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="channel" href={site.phoneHref}>
+            <span class="channel__icon"><Icon name="phone" /></span>
+            <span class="channel__text">
+              <span class="channel__label">Telefone e WhatsApp</span>
+              <span class="channel__value tabular">{site.phoneDisplay}</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="channel" href={site.instagram.href} target="_blank" rel="noopener">
+            <span class="channel__icon"><Icon name="instagram" /></span>
+            <span class="channel__text">
+              <span class="channel__label">Instagram</span>
+              <span class="channel__value">{site.instagram.handle}</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="channel" href={site.facebook.href} target="_blank" rel="noopener">
+            <span class="channel__icon"><Icon name="facebook" /></span>
+            <span class="channel__text">
+              <span class="channel__label">Facebook</span>
+              <span class="channel__value">Fernando Topanotti Tarabay</span>
+            </span>
+          </a>
+        </li>
+    </ul>
+
+    <form class="form" id="formulario" novalidate data-contact-form aria-labelledby="form-title">
+      <h3 class="form__title" id="form-title">Envie uma mensagem</h3>
+      <p class="form__hint">O formulário abre o WhatsApp com a sua mensagem pronta para enviar.</p>
+
+      <div class="field">
+        <label for="f-nome">Nome completo</label>
+        <input
+          id="f-nome"
+          name="name"
+          type="text"
+          autocomplete="name"
+          required
+          aria-describedby="f-nome-erro"
+          enterkeyhint="next"
+        />
+        <p class="field__error" id="f-nome-erro" data-error-for="name"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-email">E-mail <span class="field__opt">(opcional)</span></label>
+        <input
+          id="f-email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-describedby="f-email-erro"
+          enterkeyhint="next"
+        />
+        <p class="field__error" id="f-email-erro" data-error-for="email"></p>
+      </div>
+
+      <div class="field">
+        <label for="f-telefone">Telefone <span class="field__opt">(opcional)</span></label>
+        <input
+          id="f-telefone"
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          enterkeyhint="next"
+        />
+      </div>
+
+      <div class="field">
+        <label for="f-mensagem">Mensagem</label>
+        <textarea id="f-mensagem" name="message" rows="5" required aria-describedby="f-mensagem-erro"></textarea>
+        <p class="field__error" id="f-mensagem-erro" data-error-for="message"></p>
+      </div>
+
+      <button class="btn btn--block" type="submit">
+        <Icon name="whatsapp" />
+        Enviar pelo WhatsApp
+      </button>
+      <p class="form__status" role="status" data-form-status></p>
+    </form>
+
+    <figure class="aura">
+      <Picture
+        src={equipe}
+        alt="Dr. Fernando com a equipe na recepção da Aura Neurologia"
+        formats={['avif', 'webp']}
+        widths={[360, 540, 760]}
+        sizes="(min-width: 1100px) 600px, 100vw"
+        class="aura__img"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .contato {
+    background: var(--ice);
+  }
+
+  .contato__grid {
+    display: grid;
+    grid-template-areas:
+      'info'
+      'channels'
+      'form'
+      'photo';
+    gap: var(--s-7);
+  }
+
+  .contato__info {
+    grid-area: info;
+    display: grid;
+    align-content: start;
+    gap: var(--s-5);
+  }
+
+  .contato__cta {
+    justify-self: stretch;
+  }
+
+  .btn--lg {
+    min-height: 58px;
+    font-size: 18px;
+  }
+
+  /* ---------- Canais ---------- */
+  .channels {
+    grid-area: channels;
+    display: grid;
+    margin-top: calc(-1 * var(--s-5));
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: var(--s-4);
+    align-items: start;
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--line-strong);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .channel__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--azure);
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .channel__text {
+    display: grid;
+    gap: 2px;
+    padding-top: 1px;
+  }
+
+  .channel__label {
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .channel__value {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .channel__hint {
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--azure);
+  }
+
+  .channel:active .channel__icon {
+    background: var(--azure);
+    border-color: var(--azure);
+    color: #fff;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .channel:hover .channel__icon {
+      background: var(--azure);
+      border-color: var(--azure);
+      color: #fff;
+    }
+
+    .channel:hover .channel__value {
+      color: var(--azure);
+    }
+  }
+
+  /* ---------- Formulário ---------- */
+  .form {
+    grid-area: form;
+    display: grid;
+    gap: var(--s-5);
+    padding: var(--s-6) var(--s-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: #fff;
+  }
+
+  .form__title {
+    font-size: var(--t-h3);
+  }
+
+  .form__hint {
+    margin-top: calc(-1 * var(--s-3));
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+
+  .field label {
+    font-size: var(--t-small);
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .field__opt {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.4;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .field textarea {
+    min-height: 132px;
+    resize: vertical;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--azure);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--azure) 22%, transparent);
+  }
+
+  .field [aria-invalid='true'] {
+    border-color: #b42318;
+  }
+
+  .field [aria-invalid='true']:focus {
+    box-shadow: 0 0 0 3px rgb(180 35 24 / 0.18);
+  }
+
+  .field__error {
+    font-size: var(--t-small);
+    font-weight: 500;
+    color: #b42318;
+  }
+
+  .field__error:empty {
+    display: none;
+  }
+
+  .form__status {
+    font-size: var(--t-small);
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  .form__status:empty {
+    display: none;
+  }
+
+  /* ---------- Foto da Aura ---------- */
+  .aura {
+    grid-area: photo;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 3;
+    background: var(--line);
+  }
+
+  .aura :global(picture) {
+    display: block;
+    height: 100%;
+  }
+
+  .aura :global(.aura__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 40%;
+  }
+
+  @media (min-width: 720px) {
+    .form {
+      padding: var(--s-6);
+    }
+
+    .contato__cta {
+      justify-self: start;
+    }
+  }
+
+  @media (min-width: 720px) and (max-width: 1099px) {
+    .channels {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--s-6);
+    }
+  }
+
+  /* Desktop: título, botão e foto à esquerda; formulário à direita; canais numa faixa embaixo */
+  @media (min-width: 1100px) {
+    .contato__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      grid-template-areas:
+        'info     form'
+        'photo    form'
+        'channels channels';
+      grid-template-rows: auto 1fr auto;
+      column-gap: var(--s-8);
+      row-gap: var(--s-7);
+      align-items: start;
+    }
+
+    .channels {
+      grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+      column-gap: var(--s-5);
+      margin-top: 0;
+      padding-top: var(--s-2);
+    }
+
+    .channel {
+      border-bottom: 0;
+    }
+  }
+</style>

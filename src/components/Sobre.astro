@@ -1,0 +1,169 @@
+---
+import { Picture } from 'astro:assets';
+import { about, summary } from '../data/site';
+import retratoEmPe from '../assets/photos/retrato-em-pe.jpg';
+import comVanessa from '../assets/photos/com-vanessa.jpg';
+---
+
+<section class="section sobre" id="sobre" aria-labelledby="sobre-title" data-section>
+  <div class="wrap sobre__grid">
+    <header class="sobre__head">
+      <h2 id="sobre-title">Sobre o Dr.&nbsp;Fernando</h2>
+      <p class="lead sobre__summary">{summary}</p>
+    </header>
+
+    <div class="sobre__photos">
+      <figure class="photo-frame photo-frame--main">
+        <Picture
+          src={retratoEmPe}
+          alt="Dr. Fernando Topanotti Tarabay em pé, de blazer cinza e camisa azul-clara, em fundo escuro"
+          formats={['avif', 'webp']}
+          widths={[200, 320, 480, 640, 860]}
+          sizes="(min-width: 1100px) 430px, (min-width: 720px) 38vw, 44vw"
+          class="photo"
+        />
+      </figure>
+      <figure class="photo-frame photo-frame--family">
+        <Picture
+          src={comVanessa}
+          alt="Dr. Fernando ao lado da esposa, Vanessa, médica cardiologista"
+          formats={['avif', 'webp']}
+          widths={[200, 320, 480, 640]}
+          sizes="(min-width: 1100px) 300px, (min-width: 720px) 28vw, 44vw"
+          class="photo"
+        />
+      </figure>
+    </div>
+
+    <div class="sobre__text">
+      <p class="sobre__voice">Nas palavras dele</p>
+      {about.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'head'
+      'photos'
+      'text';
+    row-gap: var(--s-7);
+  }
+
+  .sobre__head {
+    grid-area: head;
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .sobre__summary {
+    max-width: 58ch;
+  }
+
+  /* No celular: as duas fotos lado a lado, mesma proporção */
+  .sobre__photos {
+    grid-area: photos;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-3);
+  }
+
+  .photo-frame {
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    background: #1d2329;
+  }
+
+  .photo-frame :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo-frame :global(.photo) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-frame--main :global(.photo) {
+    object-position: 50% 14%;
+  }
+
+  .photo-frame--family :global(.photo) {
+    object-position: 50% 28%;
+  }
+
+  .sobre__text {
+    grid-area: text;
+    display: grid;
+    gap: var(--s-5);
+    max-width: 64ch;
+  }
+
+  .sobre__voice {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--azure);
+  }
+
+  .sobre__voice::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--azure);
+    border-radius: 50%;
+    flex: none;
+  }
+
+  .sobre__voice::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: color-mix(in srgb, var(--azure) 38%, transparent);
+  }
+
+  @media (min-width: 720px) {
+    .sobre__grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      grid-template-areas:
+        'head   head'
+        'text   photos';
+      column-gap: var(--s-7);
+      row-gap: var(--s-7);
+      align-items: start;
+    }
+
+    .sobre__photos {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-5);
+    }
+
+    .photo-frame--family {
+      width: 72%;
+      justify-self: end;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .sobre__grid {
+      grid-template-areas:
+        'head   photos'
+        'text   photos';
+      grid-template-rows: auto 1fr;
+      column-gap: var(--s-8);
+    }
+
+    .sobre__photos {
+      padding-top: var(--s-2);
+    }
+  }
+</style>

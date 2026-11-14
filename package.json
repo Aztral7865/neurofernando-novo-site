@@ -1,0 +1,22 @@
+{
+  "name": "neurofernando",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Site do Dr. Fernando Topanotti Tarabay, neurologista em Criciúma/SC",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^7.4.12",
+    "lucide-static": "^1.73.0",
+    "sharp": "^0.35.5",
+    "simple-icons": "^16.37.0"
+  }
+}

@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Areas from '../components/Areas.astro';
+import Sobre from '../components/Sobre.astro';
+import Trajetoria from '../components/Trajetoria.astro';
+import Midia from '../components/Midia.astro';
+import Artigos from '../components/Artigos.astro';
+import Contato from '../components/Contato.astro';
+import Footer from '../components/Footer.astro';
+import ActionBar from '../components/ActionBar.astro';
+
+const title = 'Dr. Fernando Topanotti Tarabay | Neurologista em Criciúma/SC';
+const description =
+  'Neurologista em Criciúma/SC (CRM/SC 22270, RQE 18727). Coordenador da Unidade do AVC do Hospital São José e sócio-fundador da Aura Neurologia. Agende pelo WhatsApp.';
+---
+
+<Base title={title} description={description}>
+  <Header />
+  <main id="conteudo">
+    <Hero />
+    <Areas />
+    <Sobre />
+    <Trajetoria />
+    <Midia />
+    <Artigos />
+    <Contato />
+  </main>
+  <Footer />
+  <ActionBar />
+</Base>
+
+<script>
+  import '../scripts/site.ts';
+</script>

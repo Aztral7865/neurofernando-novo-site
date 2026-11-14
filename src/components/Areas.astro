@@ -1,0 +1,142 @@
+---
+import AreaItem from './AreaItem.astro';
+import { condicoes, procedimentos, type Area } from '../data/areas';
+
+const metade = Math.ceil(condicoes.length / 2);
+const colunas: Area[][] = [condicoes.slice(0, metade), condicoes.slice(metade)];
+---
+
+<section class="section areas" id="areas" aria-labelledby="areas-title" data-section>
+  <div class="wrap">
+    <header class="section__head">
+      <h2 id="areas-title">Áreas de atuação</h2>
+      <p class="section__intro">
+        Consultas para pacientes acima de 12 anos, na Aura Neurologia e no Hospital São José, em Criciúma.
+      </p>
+    </header>
+
+    <div class="areas__grid">
+      <div class="areas__group">
+        <h3 class="group-title">
+          Doenças e sintomas
+          <span class="group-count tabular">{condicoes.length} áreas</span>
+        </h3>
+        <p class="group-hint">Toque em uma área para ver como ela é tratada.</p>
+        <div class="area-cols">
+          {
+            colunas.map((coluna) => (
+              <ul class="area-list" role="list">
+                {coluna.map((a) => (
+                  <AreaItem area={a} />
+                ))}
+              </ul>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="areas__group areas__group--panel">
+        <h3 class="group-title">
+          Exames e procedimentos
+          <span class="group-count tabular">{procedimentos.length} áreas</span>
+        </h3>
+        <ul class="area-list" role="list">
+          {procedimentos.map((a) => <AreaItem area={a} />)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .areas {
+    background: var(--ice);
+  }
+
+  .areas__grid {
+    display: grid;
+    gap: var(--s-7);
+  }
+
+  .group-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding-bottom: var(--s-4);
+    margin-bottom: var(--s-3);
+    border-bottom: 1px solid var(--line-strong);
+    font-size: var(--t-h3);
+  }
+
+  .group-count {
+    flex: none;
+    font-family: var(--font-body);
+    font-size: var(--t-label);
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
+  .group-hint {
+    margin-bottom: var(--s-2);
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  :global(html:not(.js)) .group-hint {
+    display: none;
+  }
+
+  .area-cols {
+    display: grid;
+  }
+
+  /* No celular as duas colunas viram uma só lista: a aresta continua entre elas. */
+  .area-cols > .area-list:first-child > :global(.area:last-child::before) {
+    display: block;
+  }
+
+  .areas__group--panel {
+    --node-bg: #fff;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--s-5) var(--s-5) var(--s-3);
+  }
+
+  @media (min-width: 720px) {
+    .group-title {
+      margin-bottom: var(--s-6);
+    }
+
+    .group-hint {
+      display: none;
+    }
+
+    .area-cols {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--s-6);
+    }
+
+    .area-cols > .area-list:first-child > :global(.area:last-child::before) {
+      display: none;
+    }
+
+    .areas__group--panel {
+      padding: var(--s-6);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .areas__grid {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+      gap: var(--s-6);
+      align-items: start;
+    }
+
+    .areas__group--panel {
+      padding: var(--s-6) var(--s-5);
+    }
+  }
+</style>

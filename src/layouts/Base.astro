@@ -1,0 +1,83 @@
+---
+import { Font } from 'astro:assets';
+import { site } from '../data/site';
+import { asset, isPreview } from '../lib/url';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Caminho da imagem de compartilhamento (dentro de /public). */
+  ogImage?: string;
+}
+
+const { title, description, ogImage = 'compartilhar.jpg' } = Astro.props;
+const canonical = new URL('/', site.url).href;
+const ogImageUrl = new URL(asset(ogImage), Astro.site ?? site.url).href;
+
+// Dados estruturados para o Google (médico, especialidade, endereço e contatos).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Physician',
+  name: site.name,
+  url: site.url,
+  image: ogImageUrl,
+  description,
+  medicalSpecialty: 'https://schema.org/Neurologic',
+  telephone: '+55-48-99114-0848',
+  identifier: [site.crm, site.rqe],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: `${site.address.street} - ${site.address.district}`,
+    addressLocality: 'Criciúma',
+    addressRegion: 'SC',
+    postalCode: site.address.zip,
+    addressCountry: 'BR',
+  },
+  sameAs: [site.instagram.href, site.facebook.href],
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Símbolo oficial da Aura Neurologia (public/marca) como ícone do site -->
+    <link rel="icon" href={asset("favicon.ico")} sizes="48x48" />
+    <link rel="icon" href={asset("favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={asset("apple-touch-icon.png")} />
+    <link rel="manifest" href={asset("site.webmanifest")} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <Font cssVariable="--font-text" preload={[{ weight: 400 }]} />
+    <Font cssVariable="--font-display" preload={[{ weight: 600 }]} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

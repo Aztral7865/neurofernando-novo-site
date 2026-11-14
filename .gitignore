@@ -1,0 +1,28 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# OS / editor
+.DS_Store
+.idea/
+
+# local tooling (design checks, screenshots)
+.taste-skill/
+.impeccable/questions/
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/decision/
+shots/
+.playwright-mcp/
+.claude/

@@ -1,0 +1,14 @@
+---
+import { asset } from '../lib/url';
+// Símbolo oficial da Aura Neurologia (cérebro poligonal), vetorizado com as cores exatas do manual:
+// azul #096BAD no cérebro e azul-marinho #144487 no cerebelo. Nunca recolorir, contornar ou distorcer.
+// Arquivo único em /public/marca, carregado uma vez e reaproveitado pelo navegador (cabeçalho, menu, rodapé).
+interface Props {
+  class?: string;
+  /** Texto alternativo; vazio quando o nome do médico já está ao lado (decorativo). */
+  alt?: string;
+}
+const { class: className, alt = '' } = Astro.props;
+---
+
+<img class={className} src={asset("marca/aura-simbolo.svg")} width="962" height="895" alt={alt} decoding="async" />

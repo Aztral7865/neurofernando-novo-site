@@ -1,0 +1,38 @@
+---
+// Barra fixa de agendamento no celular: aparece quando o botão da abertura sai da tela
+// e some quando o contato ou o rodapé estão visíveis (nunca dois botões iguais na mesma tela).
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+
+<div class="action-bar" data-action-bar aria-hidden="true" inert>
+  <a class="btn btn--block" href={site.whatsappHref} target="_blank" rel="noopener">
+    <Icon name="whatsapp" />
+    Agendar pelo WhatsApp
+  </a>
+</div>
+
+<style>
+  .action-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    border-top: 1px solid var(--line);
+    transform: translateY(110%);
+    transition: transform 280ms var(--ease-out);
+  }
+
+  .action-bar[data-visible='true'] {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 560px) {
+    .action-bar {
+      display: none;
+    }
+  }
+</style>

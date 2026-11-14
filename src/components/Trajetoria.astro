@@ -1,0 +1,293 @@
+---
+import Icon from './Icon.astro';
+import { experiencia, formacao, membro } from '../data/trajetoria';
+---
+
+<section class="section trajetoria" id="trajetoria" aria-labelledby="trajetoria-title" data-section>
+  <div class="wrap">
+    <header class="section__head">
+      <h2 id="trajetoria-title">Formação e trajetória</h2>
+      <p class="section__intro">
+        Medicina pela UNESC, residência em Neurologia no Hospital Moinhos de Vento e pós-graduações em Neurologia
+        Vascular, Dor e Ultrassonografia em Neurologia.
+      </p>
+    </header>
+
+    <div class="trajetoria__grid">
+      <div>
+        <h3 class="col-title">Formação acadêmica</h3>
+        <ol class="timeline" role="list">
+          {
+            formacao.map((m) => (
+              <li class="step">
+                <span class="step__node" aria-hidden="true" />
+                <p class="step__year tabular">{m.year}</p>
+                <div class="step__body">
+                  <p class="step__title">{m.title}</p>
+                  <p class="step__inst">{m.institution}</p>
+                  <p class="step__place">{m.detail}</p>
+                </div>
+              </li>
+            ))
+          }
+          <li class="step step--now">
+            <span class="step__node" aria-hidden="true" />
+            <p class="step__year">Hoje</p>
+            <div class="step__body">
+              <p class="step__title">{membro}</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div>
+        <h3 class="col-title">Atuação profissional</h3>
+        <ul class="roles" role="list">
+          {
+            experiencia.map((m) => (
+              <li class="role">
+                <span class="role__node" aria-hidden="true" />
+                <div>
+                  <p class="role__title">{m.title}</p>
+                  <p class="role__meta">
+                    {m.year && <span class="role__since">{m.year}</span>}
+                    {m.detail}
+                  </p>
+                  {m.href && (
+                    <a class="role__link" href={m.href} target="_blank" rel="noopener">
+                      {m.hrefLabel}
+                      <Icon name="arrow-up-right" size={17} />
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trajetoria {
+    background: var(--ice);
+  }
+
+  .trajetoria__grid {
+    display: grid;
+    gap: var(--s-8);
+  }
+
+  .col-title {
+    padding-bottom: var(--s-4);
+    margin-bottom: var(--s-6);
+    border-bottom: 1px solid var(--line-strong);
+    font-size: var(--t-h3);
+  }
+
+  /* ---------- Linha do tempo: uma aresta contínua, um nó por data ---------- */
+  .timeline {
+    position: relative;
+    display: grid;
+    gap: var(--s-6);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: var(--azure);
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr);
+    column-gap: var(--s-4);
+    row-gap: 2px;
+  }
+
+  .step__node {
+    grid-row: 1 / span 2;
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    margin-top: 6px;
+    border: 2px solid var(--azure);
+    border-radius: 50%;
+    background: var(--ice);
+  }
+
+  .step--now .step__node {
+    background: var(--azure);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--azure) 18%, transparent);
+  }
+
+  .step__year {
+    grid-column: 2;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--azure);
+  }
+
+  .step__body {
+    grid-column: 2;
+    display: grid;
+    gap: 2px;
+    margin-top: 6px;
+  }
+
+  .step__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .step__inst {
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--text);
+  }
+
+  .step__place {
+    font-size: var(--t-small);
+    color: var(--muted);
+  }
+
+  /* ---------- Atuação: nós ligados à mesma aresta ---------- */
+  .roles {
+    display: grid;
+    gap: 0;
+  }
+
+  .role {
+    position: relative;
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr);
+    column-gap: var(--s-4);
+    padding: var(--s-5) 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .role:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* A mesma aresta azul liga os cargos, de nó em nó */
+  .role::before {
+    content: '';
+    position: absolute;
+    left: 6.5px;
+    top: calc(var(--s-5) + 12px);
+    bottom: calc(-1 * var(--s-5) - 12px);
+    width: 1px;
+    background: color-mix(in srgb, var(--azure) 38%, transparent);
+  }
+
+  .role:first-child::before {
+    top: 12px;
+  }
+
+  .role:last-child::before {
+    display: none;
+  }
+
+  .role__node {
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    margin-top: 5px;
+    border: 2px solid var(--azure);
+    border-radius: 50%;
+    background: var(--ice);
+  }
+
+  .role__title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .role__meta {
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .role__since {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 1px 8px;
+    border-radius: 99px;
+    background: var(--azure-wash);
+    color: var(--navy);
+    font-size: var(--t-label);
+    font-weight: 500;
+  }
+
+  .role__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    margin-bottom: -10px;
+    font-size: var(--t-small);
+    font-weight: 500;
+    color: var(--azure);
+    text-decoration: none;
+  }
+
+  .role:has(.role__link:focus-visible) .role__node,
+  .role:has(.role__link:active) .role__node {
+    background: var(--azure);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .role:has(.role__link:hover) .role__node {
+      background: var(--azure);
+    }
+
+    .role__link:hover {
+      color: var(--navy);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .trajetoria__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--s-8);
+    }
+
+    .step {
+      grid-template-columns: 14px 76px minmax(0, 1fr);
+      column-gap: var(--s-4);
+    }
+
+    .step__node {
+      grid-row: 1;
+    }
+
+    .step__year {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .step__body {
+      grid-column: 3;
+      grid-row: 1;
+      margin-top: 0;
+    }
+  }
+</style>

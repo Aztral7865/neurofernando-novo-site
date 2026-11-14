@@ -1,0 +1,258 @@
+---
+// Uma área de atuação. No celular, o título é um botão que abre a descrição (lista enxuta);
+// a partir de 720px tudo fica aberto e o título é texto comum.
+import Icon from './Icon.astro';
+import type { Area } from '../data/areas';
+
+interface Props {
+  area: Area;
+}
+const { area: a } = Astro.props;
+const panelId = `area-${a.id}-texto`;
+---
+
+<li class="area" id={`area-${a.id}`} data-area>
+  <span class="area__node" aria-hidden="true"></span>
+  <h4 class="area__title">
+    <button class="area__toggle" type="button" aria-expanded="false" aria-controls={panelId} data-area-toggle>
+      <span>{a.title}</span>
+      <Icon name="chevron-down" size={20} class="area__chev" />
+    </button>
+    <span class="area__static">{a.title}</span>
+  </h4>
+  <div class="area__panel" id={panelId} data-area-panel>
+    <div class="area__inner">
+      <p class="area__desc">{a.description}</p>
+      {
+        a.related && (
+          <a
+            class="area__link"
+            href={a.related.href}
+            {...(a.related.external ? { target: '_blank', rel: 'noopener' } : {})}
+          >
+            {a.related.label}
+            <Icon name={a.related.external ? 'arrow-up-right' : 'arrow-right'} size={17} />
+            {a.related.external && <span class="visually-hidden">(abre o YouTube)</span>}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</li>
+
+<style>
+  .area {
+    position: relative;
+    display: grid;
+    grid-template-columns: 12px minmax(0, 1fr);
+    column-gap: var(--s-4);
+  }
+
+  /* Aresta do nó atual até o próximo */
+  .area::before {
+    content: '';
+    position: absolute;
+    left: 5.5px;
+    top: 26px;
+    bottom: -26px;
+    width: 1px;
+    background: color-mix(in srgb, var(--azure) 38%, transparent);
+  }
+
+  .area:last-child::before {
+    display: none;
+  }
+
+  .area__node {
+    grid-row: 1;
+    position: relative;
+    z-index: 1;
+    width: 12px;
+    height: 12px;
+    margin-top: 20px;
+    border: 2px solid var(--azure);
+    border-radius: 50%;
+    background: var(--node-bg, var(--ice));
+    transition:
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .area__title {
+    grid-column: 2;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+
+  .area__static {
+    display: none;
+  }
+
+  .area__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    width: 100%;
+    min-height: 52px;
+    padding: 10px 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+  }
+
+  .area__toggle > span {
+    text-wrap: balance;
+  }
+
+  .area__toggle :global(.area__chev) {
+    flex: none;
+    color: var(--azure);
+    transition: transform 240ms var(--ease-out);
+  }
+
+  .area__toggle[aria-expanded='true'] :global(.area__chev) {
+    transform: rotate(180deg);
+  }
+
+  /* Abre e fecha pela altura da grade (0fr -> 1fr), sem medir nada em JS */
+  .area__panel {
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 280ms var(--ease-out);
+  }
+
+  .area__inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .area[data-open] .area__panel {
+    grid-template-rows: 1fr;
+  }
+
+  .area[data-open] .area__inner {
+    padding-bottom: var(--s-3);
+  }
+
+  .area__desc {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .area__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    font-size: var(--t-small);
+    font-weight: 500;
+    color: var(--azure);
+    text-decoration: none;
+  }
+
+  .area__link :global(.icon) {
+    transition: transform 200ms var(--ease-out);
+  }
+
+  .area[data-open] .area__node,
+  .area:has(.area__link:focus-visible) .area__node,
+  .area:has(.area__link:active) .area__node {
+    background: var(--azure);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--azure) 18%, transparent);
+  }
+
+  /* Sem JavaScript, tudo aberto e sem botão */
+  :global(html:not(.js)) .area__panel {
+    grid-template-rows: 1fr;
+  }
+
+  :global(html:not(.js)) .area__toggle {
+    display: none;
+  }
+
+  :global(html:not(.js)) .area__static {
+    display: block;
+    padding: 12px 0 4px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .area:has(.area__link:hover) .area__node {
+      background: var(--azure);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--azure) 18%, transparent);
+    }
+
+    .area__link:hover {
+      color: var(--navy);
+    }
+
+    .area__link:hover :global(.icon) {
+      transform: translateX(3px);
+    }
+  }
+
+  /* A partir de 720px: lista aberta, título comum */
+  @media (min-width: 720px) {
+    .area {
+      padding-bottom: var(--s-6);
+    }
+
+    .area:last-child {
+      padding-bottom: 0;
+    }
+
+    .area::before {
+      top: 14px;
+      bottom: -14px;
+    }
+
+    .area__node {
+      margin-top: 8px;
+    }
+
+    .area__title {
+      text-wrap: balance;
+    }
+
+    .area__toggle {
+      display: none;
+    }
+
+    .area__static,
+    :global(html:not(.js)) .area__static {
+      display: block;
+      padding: 0;
+    }
+
+    .area__panel,
+    .area[data-open] .area__panel {
+      grid-template-rows: 1fr;
+    }
+
+    .area__inner,
+    .area[data-open] .area__inner {
+      padding-bottom: 0;
+    }
+
+    .area__desc {
+      margin-top: 6px;
+    }
+
+    .area__link {
+      margin-bottom: -10px;
+    }
+
+    .area[data-open] .area__node {
+      background: var(--node-bg, var(--ice));
+      box-shadow: none;
+    }
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { asset } from '../lib/url';
+import { navItems } from '../data/nav';
+
+const ano = new Date().getFullYear();
+---
+
+<footer class="site-footer" data-footer>
+  <div class="wrap site-footer__grid">
+    <div class="site-footer__id">
+      <a class="f-brand" href="#inicio">
+        <span class="f-brand__name">{site.name}</span>
+      </a>
+      <p class="site-footer__reg">
+        {site.role} · <span class="tabular nowrap">{site.crm}</span> · <span class="tabular nowrap">{site.rqe}</span>
+      </p>
+      <div class="site-footer__clinic">
+        <a class="f-aura" href={site.auraHref} target="_blank" rel="noopener">
+          <img
+            src={asset("marca/aura-neurologia.svg")}
+            width="1709"
+            height="898"
+            alt="Aura Neurologia (abre o site da clínica)"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <p class="site-footer__addr">{site.address.full}</p>
+      </div>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Seções do site (rodapé)">
+      <h3 class="site-footer__h">Navegação</h3>
+      <ul role="list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-footer__contact">
+      <h3 class="site-footer__h">Contato</h3>
+      <ul role="list">
+        <li>
+          <a href={site.whatsappHref} target="_blank" rel="noopener">
+            <Icon name="whatsapp" size={18} /> <span class="visually-hidden">WhatsApp</span>
+            <span class="nowrap">{site.phoneDisplay}</span>
+          </a>
+        </li>
+        <li>
+          <a href={site.instagram.href} target="_blank" rel="noopener">
+            <Icon name="instagram" size={18} />
+            {site.instagram.handle}
+          </a>
+        </li>
+        <li>
+          <a href={site.facebook.href} target="_blank" rel="noopener">
+            <Icon name="facebook" size={18} /> Facebook
+          </a>
+        </li>
+        <li>
+          <a href={site.auraHref} target="_blank" rel="noopener">
+            <Icon name="arrow-up-right" size={18} /> auraneurologia.com
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap site-footer__legal">
+    <p>© <span data-year>{ano}</span> {site.name}. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  /* Rodapé claro: a única faixa escura da página é a das entrevistas. */
+  .site-footer {
+    background: #fff;
+    color: var(--text);
+    border-top: 1px solid var(--line);
+    padding-top: var(--s-8);
+    padding-bottom: calc(var(--s-6) + var(--bar-h) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: var(--s-7);
+    padding-bottom: var(--s-7);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .f-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  /* Logo completa da Aura junto ao endereço da clínica, com respiro (margem de segurança do manual) */
+  .site-footer__clinic {
+    display: grid;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+  }
+
+  .f-aura {
+    display: inline-block;
+    justify-self: start;
+    padding: 6px 0;
+    border-radius: var(--radius-sm);
+  }
+
+  .f-aura img {
+    width: 152px;
+    height: auto;
+  }
+
+  .f-brand__name {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.05;
+  }
+
+  .site-footer__reg {
+    margin-top: var(--s-3);
+    font-size: var(--t-small);
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .site-footer__addr {
+    font-size: var(--t-small);
+    line-height: 1.6;
+  }
+
+  .site-footer__h {
+    margin-bottom: var(--s-3);
+    font-family: var(--font-body);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--muted);
+  }
+
+  .site-footer ul {
+    display: grid;
+  }
+
+  .site-footer li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    color: var(--ink);
+    font-size: 16px;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: color 200ms ease;
+  }
+
+  .site-footer li a :global(.icon) {
+    color: var(--azure);
+    flex: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .site-footer li a:hover {
+      color: var(--azure);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  .site-footer__legal {
+    padding-top: var(--s-5);
+    font-size: var(--t-label);
+    color: var(--muted);
+  }
+
+  @media (min-width: 640px) {
+    .site-footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--s-7) var(--s-6);
+    }
+
+    .site-footer__id {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .site-footer__grid {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .site-footer__id {
+      grid-column: auto;
+    }
+  }
+</style>

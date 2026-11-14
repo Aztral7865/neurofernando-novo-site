@@ -1,0 +1,59 @@
+---
+// Ícones desenhados (Lucide) e marcas reais (Simple Icons), embutidos no HTML no build.
+import { ArrowRight, ArrowUpRight, ChevronDown, Clock, MapPin, Menu, Phone, Play, X } from 'lucide-static';
+import { siFacebook, siInstagram, siWhatsapp, siYoutube } from 'simple-icons';
+
+const lucide = {
+  menu: Menu,
+  x: X,
+  'arrow-right': ArrowRight,
+  'arrow-up-right': ArrowUpRight,
+  'chevron-down': ChevronDown,
+  'map-pin': MapPin,
+  phone: Phone,
+  play: Play,
+  clock: Clock,
+} as const;
+
+const brands = {
+  whatsapp: siWhatsapp.path,
+  instagram: siInstagram.path,
+  facebook: siFacebook.path,
+  youtube: siYoutube.path,
+} as const;
+
+export type IconName = keyof typeof lucide | keyof typeof brands;
+
+interface Props {
+  name: IconName;
+  size?: number;
+  class?: string;
+  /** Texto para leitores de tela; sem ele o ícone é decorativo. */
+  label?: string;
+  strokeWidth?: number;
+}
+
+const { name, size = 20, class: className, label, strokeWidth = 1.75 } = Astro.props;
+const isBrand = name in brands;
+const inner = isBrand
+  ? `<path d="${brands[name as keyof typeof brands]}"/>`
+  : lucide[name as keyof typeof lucide].replace(/^[\s\S]*?<svg[\s\S]*?>/, '').replace(/<\/svg>\s*$/, '');
+---
+
+<svg
+  class:list={['icon', className]}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill={isBrand ? 'currentColor' : 'none'}
+  stroke={isBrand ? 'none' : 'currentColor'}
+  stroke-width={isBrand ? undefined : strokeWidth}
+  stroke-linecap={isBrand ? undefined : 'round'}
+  stroke-linejoin={isBrand ? undefined : 'round'}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"
+  set:html={inner}
+/>
